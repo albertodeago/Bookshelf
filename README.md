@@ -1,18 +1,17 @@
 # bookshelf
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
+TODOS:
+- [ ] Refactor it into "features" folders instead of components, views, etc?
+      e.g. `src/features/read/components`, `src/features/read/stores`, etc.
+- [ ] Separate page-flip stuff as much as possible, it should be "easy" to replace it with a different library
+- [x] Possibility to choose different fonts
+- [ ] Possibility to choose different themes
+- [ ] Possibility to choose different colors
+- [ ] Possibility to choose a Cover image
+- [ ] Possibility to choose a background color or texture for pages
+- [ ] Possibility to add images in between text paragraphs ???
+- [ ] Style in general of the app
+- [ ] Add a link to create another book from the read view
 
 ## Project Setup
 
@@ -62,3 +61,7 @@ npm run test:e2e -- --debug
 ```sh
 npm run lint
 ```
+
+## Deployment
+
+TODO:
