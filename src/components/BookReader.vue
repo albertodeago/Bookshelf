@@ -286,6 +286,7 @@ onUnmounted(() => {
   background: var(--bg-tertiary);
   border-radius: var(--card-border-radius);
   box-shadow: var(--card-shadow-hover);
+  padding: var(--spacing-lg);
   position: relative;
   width: 100%;
   height: 90vh; /* Make container take most of viewport height */
