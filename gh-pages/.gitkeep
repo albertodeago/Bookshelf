@@ -1,0 +1,2 @@
+# This file ensures the gh-pages directory is tracked by Git
+# The contents of this directory will be populated automatically by the pre-push hook
