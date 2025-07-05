@@ -86,9 +86,8 @@ onMounted(() => {
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 0 auto;
-  padding: var(--spacing-2xl);
 }
 
 .loading {
@@ -143,14 +142,6 @@ onMounted(() => {
 }
 
 @media (max-width: 640px) {
-  .read-view {
-    padding: var(--spacing-lg);
-  }
-
-  .container {
-    padding: var(--spacing-2xl);
-  }
-
   .error h1 {
     font-size: var(--font-size-2xl);
   }

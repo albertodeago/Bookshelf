@@ -274,9 +274,8 @@ onUnmounted(() => {
 
 <style scoped>
 .book-reader {
-  padding: var(--spacing-2xl);
+  padding: 0;
   margin: 0 auto;
-  min-height: 100vh;
   position: relative;
   display: flex;
   align-items: center;
@@ -286,22 +285,17 @@ onUnmounted(() => {
 .container {
   background: var(--bg-tertiary);
   border-radius: var(--card-border-radius);
-  padding: var(--spacing-lg);
   box-shadow: var(--card-shadow-hover);
   position: relative;
   width: 100%;
   height: 90vh; /* Make container take most of viewport height */
-  min-height: 600px;
-  max-height: 900px;
   display: flex;
   flex-direction: column;
 }
 
 .book-container {
   width: 100%;
-  height: 70vh; /* Reduced to make room for navigation */
-  min-height: 450px;
-  max-height: 750px;
+  height: 100%;
   margin: 0 auto;
   position: relative;
 }
@@ -355,7 +349,6 @@ otherwise style will be messed up
   padding: 0;
   margin: 0;
   overflow: hidden;
-  /* position: relative; */
   /* Subtle warm tint for paper feel */
   background-color: var(--page-bg);
 }
@@ -367,9 +360,6 @@ otherwise style will be messed up
   flex-direction: column;
   line-height: var(--leading-relaxed);
   color: var(--page-text-color);
-  /* position: relative;
-  z-index: 1; */
-  /* Ensure text appears above texture layers */
 }
 
 :global(.title-page) {
@@ -414,19 +404,6 @@ otherwise style will be messed up
 }
 
 @media (max-width: 768px) {
-  .book-reader {
-    padding: var(--spacing-lg);
-  }
-
-  .container {
-    padding: var(--spacing-lg);
-  }
-
-  .book-container {
-    height: 60vh;
-    min-height: 350px;
-    max-height: 550px;
-  }
 
   .navigation-controls {
     padding: var(--spacing-md) 0;
@@ -457,16 +434,6 @@ otherwise style will be messed up
 }
 
 @media (max-width: 480px) {
-  .container {
-    height: 80vh;
-    min-height: 500px;
-  }
-
-  .book-container {
-    height: 50vh;
-    min-height: 300px;
-    max-height: 450px;
-  }
 
   .navigation-controls {
     padding: var(--spacing-sm) 0;
