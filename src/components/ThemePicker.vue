@@ -38,10 +38,26 @@ const themeOptions = Object.entries(presetThemes).map(([key, theme]) => ({
   theme
 }))
 
+const customTheme = ref<BookTheme>({ light: '#667eea', dark: '#764ba2' })
+const isCustomMode = ref(false)
+
 // Computed property to determine current theme selection
 const currentSelection = computed(() => {
   if (!props.modelValue) return JSON.stringify(presetThemes.default)
-  return JSON.stringify(props.modelValue)
+
+  const currentThemeStr = JSON.stringify(props.modelValue)
+
+  // Check if it matches any preset theme
+  const matchingPreset = themeOptions.find(option => option.value === currentThemeStr)
+  if (matchingPreset) {
+    isCustomMode.value = false
+    return currentThemeStr
+  }
+
+  // If no preset matches, it's a custom theme
+  isCustomMode.value = true
+  customTheme.value = { ...props.modelValue }
+  return 'custom'
 })
 
 const currentTheme = computed(() => {
@@ -50,14 +66,30 @@ const currentTheme = computed(() => {
 
 const currentLabel = computed(() => {
   const selection = currentSelection.value
+  if (selection === 'custom') {
+    return 'Custom Theme'
+  }
   const option = themeOptions.find(t => t.value === selection)
   return option ? option.label : 'Custom Theme'
 })
 
 const selectTheme = (themeValue: string) => {
-  const theme = JSON.parse(themeValue) as BookTheme
-  emit('update:modelValue', theme)
+  if (themeValue === 'custom') {
+    isCustomMode.value = true
+    emit('update:modelValue', { ...customTheme.value })
+  } else {
+    isCustomMode.value = false
+    const theme = JSON.parse(themeValue) as BookTheme
+    emit('update:modelValue', theme)
+  }
   showThemeDropdown.value = false
+}
+
+const updateCustomColor = (colorType: 'light' | 'dark', color: string) => {
+  customTheme.value[colorType] = color
+  if (isCustomMode.value) {
+    emit('update:modelValue', { ...customTheme.value })
+  }
 }
 
 const toggleThemeDropdown = () => {
@@ -73,6 +105,11 @@ const handleClickOutside = (event: Event) => {
 }
 
 onMounted(() => {
+  // Initialize custom theme if current selection is custom
+  if (currentSelection.value === 'custom' && props.modelValue) {
+    customTheme.value = { ...props.modelValue }
+    isCustomMode.value = true
+  }
   document.addEventListener('click', handleClickOutside)
 })
 
@@ -96,6 +133,7 @@ onUnmounted(() => {
       <span class="dropdown-arrow" :class="{ 'open': showThemeDropdown }">▼</span>
     </div>
     <div v-if="showThemeDropdown" class="custom-options">
+      <!-- Preset themes -->
       <div
         v-for="theme in themeOptions"
         :key="theme.value"
@@ -108,6 +146,39 @@ onUnmounted(() => {
             background: `linear-gradient(135deg, ${theme.theme.light} 0%, ${theme.theme.dark} 100%)`
           }"></div>
           <span class="theme-label">{{ theme.label }}</span>
+        </div>
+      </div>
+
+      <!-- Custom theme option -->
+      <div class="option-separator"></div>
+      <div
+        class="custom-option custom-theme-option"
+        :class="{ 'selected': currentSelection === 'custom' }"
+        @click="selectTheme('custom')"
+      >
+        <div class="theme-preview">
+          <div class="theme-gradient" :style="{
+            background: `linear-gradient(135deg, ${customTheme.light} 0%, ${customTheme.dark} 100%)`
+          }"></div>
+          <span class="theme-label">Custom Theme</span>
+        </div>
+
+        <!-- Inline color pickers -->
+        <div class="inline-color-pickers" @click.stop>
+          <input
+            type="color"
+            :value="customTheme.light"
+            @input="updateCustomColor('light', ($event.target as HTMLInputElement).value)"
+            class="color-picker"
+            title="Light color"
+          />
+          <input
+            type="color"
+            :value="customTheme.dark"
+            @input="updateCustomColor('dark', ($event.target as HTMLInputElement).value)"
+            class="color-picker"
+            title="Dark color"
+          />
         </div>
       </div>
     </div>
@@ -209,5 +280,47 @@ onUnmounted(() => {
 
 .custom-option.selected .theme-label {
   font-weight: 600;
+}
+
+.custom-theme-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.inline-color-pickers {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.option-separator {
+  height: 1px;
+  background: var(--border-medium);
+  margin: var(--spacing-xs) 0;
+}
+
+.color-picker {
+  width: 32px;
+  height: 24px;
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: none;
+  padding: 0;
+  transition: transform var(--transition-fast);
+}
+
+.color-picker:hover {
+  transform: scale(1.05);
+}
+
+.color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: calc(var(--radius-sm) - 1px);
 }
 </style>
