@@ -6,7 +6,6 @@ import type { Book } from '../domain/book'
 
 const props = defineProps<{
   book: Book
-  showCloseButton?: boolean
 }>()
 
 defineEmits<{
@@ -240,13 +239,33 @@ onUnmounted(() => {
 <template>
   <div class="book-reader" :style="customThemeStyles">
     <div class="container">
-      <!-- Close button for preview mode -->
-      <button v-if="showCloseButton" @click="$emit('close')" class="close-button">
-        ✕
-      </button>
-
       <!-- PageFlip Book Container -->
-      <div ref="bookContainer" class="book-container" :style="{ fontFamily }"></div>
+      <div class="book-container-wrapper">
+        <!-- Left arrow for mobile -->
+        <button
+          @click="goToPreviousPage"
+          :disabled="currentPage <= 0"
+          class="mobile-nav-arrow mobile-nav-left"
+        >
+          ←
+        </button>
+
+        <div ref="bookContainer" class="book-container" :style="{ fontFamily }"></div>
+
+        <!-- Right arrow for mobile -->
+        <button
+          @click="goToNextPage"
+          :disabled="currentPage >= totalPages - 1"
+          class="mobile-nav-arrow mobile-nav-right"
+        >
+          →
+        </button>
+
+        <!-- Mobile page indicator -->
+        <div class="mobile-page-indicator">
+          {{ currentPage + 1 }} / {{ totalPages }}
+        </div>
+      </div>
 
       <!-- Navigation buttons -->
       <div class="navigation-controls">
@@ -287,11 +306,21 @@ onUnmounted(() => {
   border-radius: var(--card-border-radius);
   box-shadow: var(--card-shadow-hover);
   padding: var(--spacing-lg);
+  margin: var(--spacing-lg);
   position: relative;
   width: 100%;
   height: 90vh; /* Make container take most of viewport height */
+  max-height: 70vh;
   display: flex;
   flex-direction: column;
+}
+
+.book-container-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .book-container {
@@ -299,6 +328,7 @@ onUnmounted(() => {
   height: 100%;
   margin: 0 auto;
   position: relative;
+  flex: 1;
 }
 
 .navigation-controls {
@@ -337,6 +367,67 @@ onUnmounted(() => {
   font-size: var(--font-size-base);
   color: var(--text-secondary);
   font-weight: 500;
+}
+
+/* Mobile navigation arrows */
+.mobile-nav-arrow {
+  display: none; /* Hidden by default, shown on mobile */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  z-index: 1000;
+  transition: all var(--transition-normal);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-nav-arrow:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.95);
+  color: rgba(0, 0, 0, 0.8);
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-nav-arrow:disabled {
+  background: rgba(255, 255, 255, 0.5);
+  color: rgba(0, 0, 0, 0.3);
+  cursor: not-allowed;
+  transform: translateY(-50%);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-left {
+  left: -18px;
+}
+
+.mobile-nav-right {
+  right: -18px;
+}
+
+/* Mobile page indicator */
+.mobile-page-indicator {
+  display: none; /* Hidden by default, shown on mobile */
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  color: rgba(0, 0, 0, 0.7);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Global styles for PageFlip pages */
@@ -405,19 +496,29 @@ otherwise style will be messed up
 }
 
 @media (max-width: 768px) {
-
+  /* Hide bottom navigation on mobile */
   .navigation-controls {
-    padding: var(--spacing-md) 0;
-    margin-top: var(--spacing-md);
+    display: none;
   }
 
-  .nav-button {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: var(--font-size-sm);
+  /* Show mobile navigation arrows and page indicator */
+  .mobile-nav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .page-indicator {
-    font-size: var(--font-size-sm);
+  .mobile-page-indicator {
+    display: block;
+  }
+
+  /* Adjust container padding for mobile arrows */
+  .container {
+    padding: var(--spacing-md);
+  }
+
+  .book-container-wrapper {
+    position: relative;
   }
 
   :global(.page-content) {
@@ -435,19 +536,37 @@ otherwise style will be messed up
 }
 
 @media (max-width: 480px) {
-
+  /* Hide bottom navigation on small mobile */
   .navigation-controls {
-    padding: var(--spacing-sm) 0;
-    margin-top: var(--spacing-sm);
+    display: none;
   }
 
-  .nav-button {
-    padding: var(--spacing-sm) var(--spacing-md);
-    font-size: var(--font-size-xs);
+  /* Show mobile navigation arrows and page indicator */
+  .mobile-nav-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-size: var(--font-size-sm);
   }
 
-  .page-indicator {
+  .mobile-page-indicator {
+    display: block;
     font-size: var(--font-size-xs);
+    padding: 2px var(--spacing-xs);
+  }
+
+  .mobile-nav-left {
+    left: 0px;
+  }
+
+  .mobile-nav-right {
+    right: 0px;
+  }
+
+  .container {
+    padding: var(--spacing-sm);
   }
 
   :global(.page-content) {
