@@ -64,4 +64,6 @@ npm run lint
 
 ## Deployment
 
-TODO:
+Application is deploy using GitHub Pages.
+A husky pre-push hook ensures that the built application is generated
+and copied to the `gh-pages` folder before pushing to the main branch.
