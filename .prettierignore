@@ -7,7 +7,7 @@ dist-ssr/
 coverage/
 
 # GitHub Pages deployment folder
-gh-pages/
+docs/
 
 # IDE files
 .vscode/

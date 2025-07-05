@@ -27,8 +27,8 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Build the project and deploy to gh-pages folder
-echo "🏗️ Building project and copying to gh-pages..."
+# Build the project and deploy to docs folder
+echo "🏗️ Building project and copying to docs..."
 npm run build-for-deploy
 if [ $? -ne 0 ]; then
   echo "❌ Build and deploy failed. Push aborted."
@@ -36,4 +36,4 @@ if [ $? -ne 0 ]; then
 fi
 
 echo "✅ All pre-push checks passed!"
-echo "📦 Build files are ready in gh-pages folder"
+echo "📦 Build files are ready in docs folder"
