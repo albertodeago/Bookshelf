@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
-import { PageFlip } from 'page-flip'
+import { PageFlip, SizeType } from 'page-flip'
 import type { Book } from '../domain/book'
 
 const props = defineProps<{
@@ -127,7 +127,7 @@ const initializePageFlip = async () => {
     pageFlip = new PageFlip(bookContainer.value, {
       width: Math.max(200, dimensions.width / 2),
       height: Math.max(300, dimensions.height),
-      size: 'stretch',
+      size: "stretch",
       minWidth: 200,
       maxWidth: dimensions.width,
       minHeight: 300,
@@ -150,11 +150,17 @@ const initializePageFlip = async () => {
     totalPages.value = pages.length
 
     // Add event listeners
+    // @ts-expect-error - PageFlip types weren't correctly defined so we removed them
     pageFlip.on('flip', (e) => {
+      if (typeof e.data !== 'number') {
+        throw new Error('Invalid page number in flip event')
+      }
+
       currentPage.value = e.data
       console.log('Current page:', e.data)
     })
 
+    // @ts-expect-error - PageFlip types weren't correctly defined so we removed them
     pageFlip.on('changeState', (e) => {
       console.log('State changed:', e.data)
     })

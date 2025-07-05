@@ -3,7 +3,6 @@
 TODOS:
 - [ ] Refactor it into "features" folders instead of components, views, etc?
       e.g. `src/features/read/components`, `src/features/read/stores`, etc.
-- [ ] Separate page-flip stuff as much as possible, it should be "easy" to replace it with a different library
 - [x] Possibility to choose different fonts
 - [ ] Possibility to choose different themes
 - [ ] Possibility to choose different colors
@@ -11,6 +10,7 @@ TODOS:
 - [ ] Possibility to choose a background color or texture for pages
 - [ ] Possibility to add images in between text paragraphs ???
 - [ ] Style in general of the app
+- [ ] Error cases - show error messages when something goes wrong
 - [ ] Add a link to create another book from the read view
 
 ## Project Setup
