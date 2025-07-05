@@ -20,7 +20,7 @@ const customThemeStyles = computed(() => {
     '--theme-secondary-light': book.value.theme.light,
     '--theme-secondary-dark': book.value.theme.dark,
     '--theme-brand-gradient': `linear-gradient(135deg, ${book.value.theme.light} 0%, ${book.value.theme.dark} 100%)`,
-    '--theme-brand-hover-shadow': `0 8px 25px ${book.value.theme.light}4D` // 30% opacity
+    '--theme-brand-hover-shadow': `0 8px 25px ${book.value.theme.light}4D`, // 30% opacity
   }
 })
 
@@ -56,9 +56,7 @@ onMounted(() => {
       <div v-else-if="error" class="error">
         <h1>📚 Book Not Found</h1>
         <p>{{ error }}</p>
-        <router-link to="/create" class="create-link">
-          Create a new book
-        </router-link>
+        <router-link to="/create" class="create-link"> Create a new book </router-link>
       </div>
 
       <!-- Book Content -->
@@ -68,9 +66,7 @@ onMounted(() => {
 
       <!-- Footer for navigation -->
       <footer v-if="book" class="book-footer">
-        <router-link to="/create" class="create-link">
-          Create another book
-        </router-link>
+        <router-link to="/create" class="create-link"> Create another book </router-link>
       </footer>
     </div>
   </main>
@@ -133,7 +129,9 @@ onMounted(() => {
   text-decoration: none;
   font-weight: 600;
   font-size: var(--font-size-base);
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
 }
 
 .create-link:hover {

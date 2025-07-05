@@ -1,15 +1,14 @@
-
 export type BookTheme = {
-  light: string;
-  dark: string;
+  light: string
+  dark: string
 }
 
 export type Book = {
-  title: string;
-  author: string;
-  content: string;
-  font?: string;
-  theme?: BookTheme;
+  title: string
+  author: string
+  content: string
+  font?: string
+  theme?: BookTheme
 }
 
 // TODO: maybe we should use branded type for EncodedBook?

@@ -159,55 +159,81 @@
 /* Theme variants that override specific CSS variables */
 
 /* Default Theme (current purple gradient) */
-[data-theme="default"], :root {
+[data-theme='default'],
+:root {
   --theme-secondary-light: #667eea;
   --theme-secondary-dark: #764ba2;
-  --theme-brand-gradient: linear-gradient(135deg, var(--theme-secondary-light) 0%, var(--theme-secondary-dark) 100%);
+  --theme-brand-gradient: linear-gradient(
+    135deg,
+    var(--theme-secondary-light) 0%,
+    var(--theme-secondary-dark) 100%
+  );
   --theme-brand-hover-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
 }
 
 /* Ocean Theme */
-[data-theme="ocean"] {
+[data-theme='ocean'] {
   --theme-secondary-light: #06b6d4;
   --theme-secondary-dark: #0891b2;
-  --theme-brand-gradient: linear-gradient(135deg, var(--theme-secondary-light) 0%, var(--theme-secondary-dark) 100%);
+  --theme-brand-gradient: linear-gradient(
+    135deg,
+    var(--theme-secondary-light) 0%,
+    var(--theme-secondary-dark) 100%
+  );
   --theme-brand-hover-shadow: 0 8px 25px rgba(6, 182, 212, 0.3);
 }
 
 /* Forest Theme */
-[data-theme="forest"] {
+[data-theme='forest'] {
   --theme-secondary-light: #10b981;
   --theme-secondary-dark: #059669;
-  --theme-brand-gradient: linear-gradient(135deg, var(--theme-secondary-light) 0%, var(--theme-secondary-dark) 100%);
+  --theme-brand-gradient: linear-gradient(
+    135deg,
+    var(--theme-secondary-light) 0%,
+    var(--theme-secondary-dark) 100%
+  );
   --theme-brand-hover-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
 }
 
 /* Sunset Theme */
-[data-theme="sunset"] {
+[data-theme='sunset'] {
   --theme-secondary-light: #f59e0b;
   --theme-secondary-dark: #dc2626;
-  --theme-brand-gradient: linear-gradient(135deg, var(--theme-secondary-light) 0%, var(--theme-secondary-dark) 100%);
+  --theme-brand-gradient: linear-gradient(
+    135deg,
+    var(--theme-secondary-light) 0%,
+    var(--theme-secondary-dark) 100%
+  );
   --theme-brand-hover-shadow: 0 8px 25px rgba(245, 158, 11, 0.3);
 }
 
 /* Monochrome Theme */
-[data-theme="monochrome"] {
+[data-theme='monochrome'] {
   --theme-secondary-light: #4b5563;
   --theme-secondary-dark: #1f2937;
-  --theme-brand-gradient: linear-gradient(135deg, var(--theme-secondary-light) 0%, var(--theme-secondary-dark) 100%);
+  --theme-brand-gradient: linear-gradient(
+    135deg,
+    var(--theme-secondary-light) 0%,
+    var(--theme-secondary-dark) 100%
+  );
   --theme-brand-hover-shadow: 0 8px 25px rgba(75, 85, 99, 0.3);
 }
 
 /* Vintage Theme */
-[data-theme="vintage"] {
+[data-theme='vintage'] {
   --theme-secondary-light: #d97706;
   --theme-secondary-dark: #92400e;
-  --theme-brand-gradient: linear-gradient(135deg, var(--theme-secondary-light) 0%, var(--theme-secondary-dark) 100%);
+  --theme-brand-gradient: linear-gradient(
+    135deg,
+    var(--theme-secondary-light) 0%,
+    var(--theme-secondary-dark) 100%
+  );
   --theme-brand-hover-shadow: 0 8px 25px rgba(217, 119, 6, 0.3);
 }
 
 /* Update brand variables to use theme-specific ones */
-:root, [data-theme] {
+:root,
+[data-theme] {
   --brand-gradient: var(--theme-brand-gradient);
   --brand-hover-shadow: var(--theme-brand-hover-shadow);
   --secondary-light: var(--theme-secondary-light);

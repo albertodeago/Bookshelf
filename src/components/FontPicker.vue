@@ -29,7 +29,7 @@ const fontOptions = [
   { value: '"Permanent Marker", cursive', label: 'Permanent Marker (Bold)' },
   { value: '"Amatic SC", cursive', label: 'Amatic SC (Hand-drawn)' },
   { value: '"Shadows Into Light", cursive', label: 'Shadows Into Light (Script)' },
-  { value: '"Comic Neue", cursive', label: 'Comic Neue (Comic)' }
+  { value: '"Comic Neue", cursive', label: 'Comic Neue (Comic)' },
 ]
 
 const toggleFontDropdown = () => {
@@ -42,7 +42,7 @@ const selectFont = (fontValue: string) => {
 }
 
 const getSelectedFontLabel = () => {
-  const selected = fontOptions.find(font => font.value === props.modelValue)
+  const selected = fontOptions.find((font) => font.value === props.modelValue)
   return selected ? selected.label : props.modelValue
 }
 
@@ -65,20 +65,16 @@ onUnmounted(() => {
 
 <template>
   <div class="font-picker-container">
-    <div
-      class="custom-select"
-      @click="toggleFontDropdown"
-      :style="{ fontFamily: modelValue }"
-    >
+    <div class="custom-select" @click="toggleFontDropdown" :style="{ fontFamily: modelValue }">
       {{ getSelectedFontLabel() }}
-      <span class="dropdown-arrow" :class="{ 'open': showFontDropdown }">▼</span>
+      <span class="dropdown-arrow" :class="{ open: showFontDropdown }">▼</span>
     </div>
     <div v-if="showFontDropdown" class="custom-options">
       <div
         v-for="font in fontOptions"
         :key="font.value"
         class="custom-option"
-        :class="{ 'selected': font.value === modelValue }"
+        :class="{ selected: font.value === modelValue }"
         :style="{ fontFamily: font.value }"
         @click="selectFont(font.value)"
       >

@@ -24,7 +24,7 @@ const currentBook = computed((): Book | null => {
     author: author.value.trim(),
     content: content.value.trim(),
     font: selectedFont.value,
-    theme: selectedTheme.value
+    theme: selectedTheme.value,
   }
 })
 
@@ -37,12 +37,15 @@ const saveAndShare = () => {
   const shareableUrl = encodeBookToUrl(currentBook.value)
 
   // Copy to clipboard
-  navigator.clipboard.writeText(shareableUrl).then(() => {
-    alert('Shareable URL copied to clipboard!')
-  }).catch(() => {
-    // Fallback: show the URL in a prompt
-    prompt('Copy this shareable URL:', shareableUrl)
-  })
+  navigator.clipboard
+    .writeText(shareableUrl)
+    .then(() => {
+      alert('Shareable URL copied to clipboard!')
+    })
+    .catch(() => {
+      // Fallback: show the URL in a prompt
+      prompt('Copy this shareable URL:', shareableUrl)
+    })
 }
 </script>
 
@@ -96,9 +99,7 @@ const saveAndShare = () => {
         </div>
 
         <div class="button-group">
-          <button type="submit" class="save-button">
-            Save and Share
-          </button>
+          <button type="submit" class="save-button">Save and Share</button>
         </div>
       </form>
     </div>
@@ -106,10 +107,7 @@ const saveAndShare = () => {
     <!-- Live Preview Section -->
     <div v-if="currentBook" class="preview-section">
       <h2>Live Preview</h2>
-      <BookReader
-        :book="currentBook"
-        :show-close-button="false"
-      />
+      <BookReader :book="currentBook" :show-close-button="false" />
     </div>
   </main>
 </template>
@@ -214,7 +212,9 @@ textarea {
   font-size: var(--font-size-lg);
   font-weight: 600;
   cursor: pointer;
-  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+  transition:
+    transform var(--transition-normal),
+    box-shadow var(--transition-normal);
   width: 100%;
 }
 

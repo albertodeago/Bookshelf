@@ -1,4 +1,4 @@
-import { encodeBook, type Book } from "./book"
+import { encodeBook, type Book } from './book'
 
 export const encodeBookToUrl = (book: Book): string => {
   const encodedData = encodeBook(book)

@@ -33,7 +33,7 @@ const customThemeStyles = computed(() => {
     '--theme-secondary-light': props.book.theme.light,
     '--theme-secondary-dark': props.book.theme.dark,
     '--theme-brand-gradient': `linear-gradient(135deg, ${props.book.theme.light} 0%, ${props.book.theme.dark} 100%)`,
-    '--theme-brand-hover-shadow': `0 8px 25px ${props.book.theme.light}4D` // 30% opacity
+    '--theme-brand-hover-shadow': `0 8px 25px ${props.book.theme.light}4D`, // 30% opacity
   }
 })
 
@@ -66,7 +66,10 @@ const createPageElement = (content: string, isTitle = false) => {
     page.innerHTML = `
       <div class="page-content">
         <div class="page-text">
-          ${content.split('\n').map(p => p.trim() ? `<p>${p}</p>` : '').join('')}
+          ${content
+            .split('\n')
+            .map((p) => (p.trim() ? `<p>${p}</p>` : ''))
+            .join('')}
         </div>
       </div>
     `
@@ -83,7 +86,7 @@ const createPages = () => {
 
   // Content pages
   const contentPages = splitIntoPages(props.book.content)
-  contentPages.forEach(pageContent => {
+  contentPages.forEach((pageContent) => {
     pages.push(createPageElement(pageContent))
   })
 
@@ -141,7 +144,7 @@ const initializePageFlip = async () => {
     pageFlip = new PageFlip(bookContainer.value, {
       width: Math.max(200, dimensions.width / 2),
       height: Math.max(300, dimensions.height),
-      size: "stretch",
+      size: 'stretch',
       minWidth: 200,
       maxWidth: dimensions.width,
       minHeight: 300,
@@ -153,7 +156,7 @@ const initializePageFlip = async () => {
       showCover: true,
       mobileScrollSupport: true,
       swipeDistance: 20,
-      clickEventForward: true
+      clickEventForward: true,
     })
 
     // Create and load pages
@@ -185,7 +188,6 @@ const initializePageFlip = async () => {
 
     console.log('PageFlip initialized successfully')
     return true
-
   } catch (error) {
     console.error('Error initializing PageFlip:', error)
     return false
@@ -221,7 +223,6 @@ onMounted(async () => {
     if (!success) {
       console.warn('Initial PageFlip initialization failed')
     }
-
   } catch (error) {
     console.error('Error in onMounted:', error)
   }
@@ -262,9 +263,7 @@ onUnmounted(() => {
         </button>
 
         <!-- Mobile page indicator -->
-        <div class="mobile-page-indicator">
-          {{ currentPage + 1 }} / {{ totalPages }}
-        </div>
+        <div class="mobile-page-indicator">{{ currentPage + 1 }} / {{ totalPages }}</div>
       </div>
 
       <!-- Navigation buttons -->
@@ -276,9 +275,7 @@ onUnmounted(() => {
         >
           ← Previous
         </button>
-        <span class="page-indicator">
-          {{ currentPage + 1 }} / {{ totalPages }}
-        </span>
+        <span class="page-indicator"> {{ currentPage + 1 }} / {{ totalPages }} </span>
         <button
           @click="goToNextPage"
           :disabled="currentPage >= totalPages - 1"

@@ -19,7 +19,7 @@ const presetThemeLabels: { [key: string]: string } = {
   forest: 'Forest (Green)',
   sunset: 'Sunset (Orange)',
   monochrome: 'Monochrome (Gray)',
-  vintage: 'Vintage (Brown)'
+  vintage: 'Vintage (Brown)',
 }
 
 const presetThemes: { [key: string]: BookTheme } = {
@@ -28,14 +28,14 @@ const presetThemes: { [key: string]: BookTheme } = {
   forest: { light: '#10b981', dark: '#059669' },
   sunset: { light: '#f59e0b', dark: '#dc2626' },
   monochrome: { light: '#4b5563', dark: '#1f2937' },
-  vintage: { light: '#d97706', dark: '#92400e' }
+  vintage: { light: '#d97706', dark: '#92400e' },
 }
 
 // Generate theme options dynamically
 const themeOptions = Object.entries(presetThemes).map(([key, theme]) => ({
   value: JSON.stringify(theme),
   label: presetThemeLabels[key],
-  theme
+  theme,
 }))
 
 const customTheme = ref<BookTheme>({ light: '#667eea', dark: '#764ba2' })
@@ -48,7 +48,7 @@ const currentSelection = computed(() => {
   const currentThemeStr = JSON.stringify(props.modelValue)
 
   // Check if it matches any preset theme
-  const matchingPreset = themeOptions.find(option => option.value === currentThemeStr)
+  const matchingPreset = themeOptions.find((option) => option.value === currentThemeStr)
   if (matchingPreset) {
     isCustomMode.value = false
     return currentThemeStr
@@ -69,7 +69,7 @@ const currentLabel = computed(() => {
   if (selection === 'custom') {
     return 'Custom Theme'
   }
-  const option = themeOptions.find(t => t.value === selection)
+  const option = themeOptions.find((t) => t.value === selection)
   return option ? option.label : 'Custom Theme'
 })
 
@@ -120,17 +120,17 @@ onUnmounted(() => {
 
 <template>
   <div class="theme-picker-container">
-    <div
-      class="custom-select"
-      @click="toggleThemeDropdown"
-    >
+    <div class="custom-select" @click="toggleThemeDropdown">
       <div class="theme-preview">
-        <div class="theme-gradient" :style="{
-          background: `linear-gradient(135deg, ${currentTheme.light} 0%, ${currentTheme.dark} 100%)`
-        }"></div>
+        <div
+          class="theme-gradient"
+          :style="{
+            background: `linear-gradient(135deg, ${currentTheme.light} 0%, ${currentTheme.dark} 100%)`,
+          }"
+        ></div>
         <span class="theme-label">{{ currentLabel }}</span>
       </div>
-      <span class="dropdown-arrow" :class="{ 'open': showThemeDropdown }">▼</span>
+      <span class="dropdown-arrow" :class="{ open: showThemeDropdown }">▼</span>
     </div>
     <div v-if="showThemeDropdown" class="custom-options">
       <!-- Preset themes -->
@@ -138,13 +138,16 @@ onUnmounted(() => {
         v-for="theme in themeOptions"
         :key="theme.value"
         class="custom-option"
-        :class="{ 'selected': currentSelection === theme.value }"
+        :class="{ selected: currentSelection === theme.value }"
         @click="selectTheme(theme.value)"
       >
         <div class="theme-preview">
-          <div class="theme-gradient" :style="{
-            background: `linear-gradient(135deg, ${theme.theme.light} 0%, ${theme.theme.dark} 100%)`
-          }"></div>
+          <div
+            class="theme-gradient"
+            :style="{
+              background: `linear-gradient(135deg, ${theme.theme.light} 0%, ${theme.theme.dark} 100%)`,
+            }"
+          ></div>
           <span class="theme-label">{{ theme.label }}</span>
         </div>
       </div>
@@ -153,13 +156,16 @@ onUnmounted(() => {
       <div class="option-separator"></div>
       <div
         class="custom-option custom-theme-option"
-        :class="{ 'selected': currentSelection === 'custom' }"
+        :class="{ selected: currentSelection === 'custom' }"
         @click="selectTheme('custom')"
       >
         <div class="theme-preview">
-          <div class="theme-gradient" :style="{
-            background: `linear-gradient(135deg, ${customTheme.light} 0%, ${customTheme.dark} 100%)`
-          }"></div>
+          <div
+            class="theme-gradient"
+            :style="{
+              background: `linear-gradient(135deg, ${customTheme.light} 0%, ${customTheme.dark} 100%)`,
+            }"
+          ></div>
           <span class="theme-label">Custom Theme</span>
         </div>
 

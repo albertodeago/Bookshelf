@@ -27,22 +27,11 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-# Build the project
-echo "🏗️ Building project..."
-npm run build
+# Build the project and deploy to gh-pages folder
+echo "🏗️ Building project and copying to gh-pages..."
+npm run build-for-deploy
 if [ $? -ne 0 ]; then
-  echo "❌ Build failed. Push aborted."
-  exit 1
-fi
-
-# Copy dist files to gh-pages folder
-echo "📁 Copying files to gh-pages folder..."
-rm -rf gh-pages/*
-cp -r dist/* gh-pages/
-if [ $? -eq 0 ]; then
-  echo "✅ Files successfully copied to gh-pages folder"
-else
-  echo "❌ Failed to copy files to gh-pages folder"
+  echo "❌ Build and deploy failed. Push aborted."
   exit 1
 fi
 
