@@ -61,59 +61,86 @@ onMounted(() => {
 </template>
 
 <style scoped>
+.read-view {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl);
+}
 
 .loading {
   text-align: center;
-  padding: 3rem;
-  color: #6b7280;
+  padding: var(--spacing-3xl);
+  color: var(--text-tertiary);
+  font-size: var(--font-size-lg);
 }
 
 .error {
   text-align: center;
-  padding: 3rem;
+  padding: var(--spacing-3xl);
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--card-shadow);
 }
 
 .error h1 {
-  color: #ef4444;
-  margin-bottom: 1rem;
-  font-size: 2rem;
+  color: var(--error-500);
+  margin-bottom: var(--spacing-lg);
+  font-size: var(--font-size-3xl);
 }
 
 .error p {
-  color: #6b7280;
-  margin-bottom: 2rem;
+  color: var(--text-tertiary);
+  margin-bottom: var(--spacing-2xl);
+  font-size: var(--font-size-lg);
 }
 
 .book-footer {
   text-align: center;
-  padding-top: 2rem;
-  border-top: 1px solid #e5e7eb;
-  margin-top: 2rem;
+  padding-top: var(--spacing-2xl);
+  border-top: 1px solid var(--border-light);
+  margin-top: var(--spacing-2xl);
 }
 
 .create-link {
   display: inline-block;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 6px;
+  background: var(--btn-primary-bg);
+  color: var(--text-inverse);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border-radius: var(--radius-md);
   text-decoration: none;
   font-weight: 600;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-size: var(--font-size-base);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .create-link:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  box-shadow: var(--btn-primary-hover-shadow);
 }
 
 @media (max-width: 640px) {
   .read-view {
-    padding: 1rem;
+    padding: var(--spacing-lg);
   }
 
   .container {
-    padding: 2rem;
+    padding: var(--spacing-2xl);
+  }
+
+  .error h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .error p {
+    font-size: var(--font-size-base);
   }
 }
 </style>

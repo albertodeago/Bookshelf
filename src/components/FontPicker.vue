@@ -94,32 +94,33 @@ onUnmounted(() => {
 }
 
 .custom-select {
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 1rem;
-  background: white;
+  padding: var(--spacing-md);
+  border: 2px solid var(--input-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: var(--input-bg);
+  color: var(--text-primary);
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: border-color 0.2s ease;
+  transition: border-color var(--transition-normal);
 }
 
 .custom-select:hover {
-  border-color: #d1d5db;
+  border-color: var(--border-medium);
 }
 
 .custom-select:focus-within,
 .custom-select.focused {
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--input-border-focus);
+  box-shadow: var(--input-focus-shadow);
 }
 
 .dropdown-arrow {
-  transition: transform 0.2s ease;
-  font-size: 0.8rem;
-  color: #6b7280;
+  transition: transform var(--transition-normal);
+  font-size: var(--font-size-sm);
+  color: var(--text-tertiary);
 }
 
 .dropdown-arrow.open {
@@ -131,21 +132,22 @@ onUnmounted(() => {
   top: 100%;
   left: 0;
   right: 0;
-  background: white;
-  border: 2px solid #e5e7eb;
+  background: var(--card-bg);
+  border: 2px solid var(--input-border);
   border-top: none;
-  border-radius: 0 0 6px 6px;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
   max-height: 200px;
   overflow-y: auto;
-  z-index: 1000;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: var(--z-dropdown);
+  box-shadow: var(--card-shadow);
 }
 
 .custom-option {
-  padding: 0.75rem;
+  padding: var(--spacing-md);
   cursor: pointer;
-  transition: background-color 0.2s ease;
-  border-bottom: 1px solid #f3f4f6;
+  transition: background-color var(--transition-normal);
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
 }
 
 .custom-option:last-child {
@@ -153,12 +155,12 @@ onUnmounted(() => {
 }
 
 .custom-option:hover {
-  background-color: #f9fafb;
+  background-color: var(--bg-secondary);
 }
 
 .custom-option.selected {
-  background-color: #eff6ff;
-  color: #1d4ed8;
+  background-color: var(--primary-50);
+  color: var(--primary-700);
   font-weight: 500;
 }
 </style>

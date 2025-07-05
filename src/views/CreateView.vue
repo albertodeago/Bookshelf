@@ -12,9 +12,6 @@ const author = ref(defaultBookAuthor)
 const content = ref(defaultBookContent)
 const selectedFont = ref('Georgia, serif')
 
-// Check if we're in development mode
-const isDevelopment = computed(() => import.meta.env.DEV)
-
 // Create a computed book object for preview
 const currentBook = computed((): Book | null => {
   if (!title.value.trim() || !author.value.trim() || !content.value.trim()) {
@@ -111,103 +108,111 @@ const saveAndShare = () => {
 
 <style scoped>
 .create-view {
-  padding: 2rem;
+  padding: var(--spacing-2xl);
   margin: 0 auto;
   max-width: 1400px;
 }
 
 .container {
-  background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--card-shadow);
+  margin-bottom: var(--spacing-2xl);
 }
 
 .preview-section {
-  background: white;
-  border-radius: 8px;
-  padding: 2rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: var(--card-bg);
+  border-radius: var(--card-border-radius);
+  padding: var(--spacing-2xl);
+  box-shadow: var(--card-shadow);
 }
 
 .preview-section h2 {
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xl);
   text-align: center;
-  font-size: 1.5rem;
+  font-size: var(--font-size-2xl);
 }
 
 h1 {
-  color: #2c3e50;
-  margin-bottom: 2rem;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2xl);
   text-align: center;
 }
 
 .book-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--spacing-xl);
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: var(--spacing-sm);
 }
 
 label {
   font-weight: 600;
-  color: #374151;
-  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 input,
 textarea {
-  padding: 0.75rem;
-  border: 2px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
+  padding: var(--spacing-md);
+  border: 2px solid var(--input-border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  background: var(--input-bg);
+  color: var(--text-primary);
+  transition: border-color var(--transition-normal);
 }
 
 input:focus,
 textarea:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--input-border-focus);
+  box-shadow: var(--input-focus-shadow);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
 }
 
 textarea {
   resize: vertical;
   min-height: 200px;
   font-family: inherit;
+  line-height: var(--leading-relaxed);
 }
 
 .button-group {
   display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
+  gap: var(--spacing-lg);
+  margin-top: var(--spacing-lg);
 }
 
 .save-button {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1rem 2rem;
+  background: var(--btn-primary-bg);
+  color: var(--text-inverse);
+  padding: var(--spacing-lg) var(--spacing-2xl);
   border: none;
-  border-radius: 6px;
-  font-size: 1.1rem;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-lg);
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
   width: 100%;
 }
 
 .save-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+  box-shadow: var(--btn-primary-hover-shadow);
 }
 
 .save-button:active {
@@ -216,17 +221,17 @@ textarea {
 
 @media (max-width: 640px) {
   .create-view {
-    padding: 1rem;
+    padding: var(--spacing-lg);
   }
 
   .container,
   .preview-section {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
+    padding: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
   }
 
   .preview-section h2 {
-    font-size: 1.25rem;
+    font-size: var(--font-size-xl);
   }
 }
 

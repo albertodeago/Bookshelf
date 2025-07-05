@@ -259,7 +259,7 @@ onUnmounted(() => {
 
 <style scoped>
 .book-reader {
-  padding: 2rem;
+  padding: var(--spacing-2xl);
   margin: 0 auto;
   min-height: 100vh;
   position: relative;
@@ -269,10 +269,10 @@ onUnmounted(() => {
 }
 
 .container {
-  background: #f8f9fa;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background: var(--bg-tertiary);
+  border-radius: var(--card-border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--card-shadow-hover);
   position: relative;
   width: 100%;
   height: 90vh; /* Make container take most of viewport height */
@@ -295,80 +295,90 @@ onUnmounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 0;
-  margin-top: 1rem;
+  padding: var(--spacing-lg) 0;
+  margin-top: var(--spacing-lg);
 }
 
 .nav-button {
-  background: #667eea;
-  color: white;
+  background: var(--secondary-light);
+  color: var(--text-inverse);
   border: none;
-  border-radius: 6px;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-size: var(--font-size-base);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   font-weight: 500;
 }
 
 .nav-button:hover:not(:disabled) {
-  background: #5a67d8;
+  background: var(--secondary-dark);
   transform: translateY(-1px);
 }
 
 .nav-button:disabled {
-  background: #cbd5e0;
-  color: #a0aec0;
+  background: var(--btn-disabled-bg);
+  color: var(--btn-disabled-color);
   cursor: not-allowed;
   transform: none;
 }
 
 .page-indicator {
-  font-size: 1rem;
-  color: #4a5568;
+  font-size: var(--font-size-base);
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
 /* Global styles for PageFlip pages */
+/*
+Important: the book-pages cannot have `position: relative`
+otherwise style will be messed up
+*/
 :global(.book-page) {
-  background: white;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: var(--page-bg);
+  box-shadow: var(--page-shadow);
   padding: 0;
   margin: 0;
   overflow: hidden;
+  /* position: relative; */
+  /* Subtle warm tint for paper feel */
+  background-color: var(--page-bg);
 }
 
 :global(.page-content) {
-  padding: 2rem;
+  padding: var(--spacing-2xl);
   height: 100%;
   display: flex;
   flex-direction: column;
-  line-height: 1.6;
-  color: #2d3748;
+  line-height: var(--leading-relaxed);
+  color: var(--page-text-color);
+  /* position: relative;
+  z-index: 1; */
+  /* Ensure text appears above texture layers */
 }
 
 :global(.title-page) {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: var(--btn-primary-bg);
+  color: var(--text-inverse);
 }
 
 :global(.title-page h1) {
-  font-size: 2.5rem;
+  font-size: var(--font-size-4xl);
   font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  color: white;
+  margin-bottom: var(--spacing-lg);
+  line-height: var(--leading-tight);
+  color: var(--text-inverse);
 }
 
 :global(.title-page p) {
-  font-size: 1.25rem;
+  font-size: var(--font-size-xl);
   font-style: italic;
   opacity: 0.9;
   margin: 0;
-  color: white;
+  color: var(--text-inverse);
 }
 
 :global(.page-text) {
@@ -377,11 +387,11 @@ onUnmounted(() => {
 }
 
 :global(.page-text p) {
-  margin-bottom: 1rem;
+  margin-bottom: var(--spacing-lg);
   text-align: justify;
-  text-indent: 1.5rem;
-  font-size: 1rem;
-  line-height: 1.7;
+  text-indent: var(--spacing-xl);
+  font-size: var(--font-size-base);
+  line-height: var(--leading-loose);
 }
 
 :global(.page-text p:first-child) {
@@ -390,11 +400,11 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .book-reader {
-    padding: 1rem;
+    padding: var(--spacing-lg);
   }
 
   .container {
-    padding: 1rem;
+    padding: var(--spacing-lg);
   }
 
   .book-container {
@@ -404,38 +414,30 @@ onUnmounted(() => {
   }
 
   .navigation-controls {
-    padding: 0.75rem 0;
-    margin-top: 0.75rem;
+    padding: var(--spacing-md) 0;
+    margin-top: var(--spacing-md);
   }
 
   .nav-button {
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    font-size: var(--font-size-sm);
   }
 
   .page-indicator {
-    font-size: 0.9rem;
-  }
-
-  .close-button {
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 2rem;
-    height: 2rem;
-    font-size: 1rem;
+    font-size: var(--font-size-sm);
   }
 
   :global(.page-content) {
-    padding: 1.5rem;
+    padding: var(--spacing-xl);
   }
 
-  :global(.page-title) {
-    font-size: 2rem;
+  :global(.title-page h1) {
+    font-size: var(--font-size-3xl);
   }
 
   :global(.page-text p) {
-    font-size: 0.9rem;
-    text-indent: 1rem;
+    font-size: var(--font-size-sm);
+    text-indent: var(--spacing-lg);
   }
 }
 
@@ -452,29 +454,29 @@ onUnmounted(() => {
   }
 
   .navigation-controls {
-    padding: 0.5rem 0;
-    margin-top: 0.5rem;
+    padding: var(--spacing-sm) 0;
+    margin-top: var(--spacing-sm);
   }
 
   .nav-button {
-    padding: 0.5rem 0.75rem;
-    font-size: 0.85rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-xs);
   }
 
   .page-indicator {
-    font-size: 0.85rem;
+    font-size: var(--font-size-xs);
   }
 
   :global(.page-content) {
-    padding: 1rem;
+    padding: var(--spacing-lg);
   }
 
-  :global(.page-title) {
-    font-size: 1.5rem;
+  :global(.title-page h1) {
+    font-size: var(--font-size-2xl);
   }
 
   :global(.page-text p) {
-    font-size: 0.85rem;
+    font-size: var(--font-size-xs);
   }
 }
 </style>
