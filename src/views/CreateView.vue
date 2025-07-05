@@ -6,13 +6,13 @@ import FontPicker from '../components/FontPicker.vue'
 import ThemePicker from '../components/ThemePicker.vue'
 import { defaultBookContent, defaultBookTitle, defaultBookAuthor } from '../data/defaultContent'
 
-import type { Book } from '../domain/book'
+import type { Book, BookTheme } from '../domain/book'
 
 const title = ref(defaultBookTitle)
 const author = ref(defaultBookAuthor)
 const content = ref(defaultBookContent)
 const selectedFont = ref('Georgia, serif')
-const selectedTheme = ref('default')
+const selectedTheme = ref<BookTheme>({ light: '#667eea', dark: '#764ba2' })
 
 // Create a computed book object for preview
 const currentBook = computed((): Book | null => {

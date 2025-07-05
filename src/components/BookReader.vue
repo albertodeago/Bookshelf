@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
-import { PageFlip, SizeType } from 'page-flip'
+// @ts-expect-error - PageFlip types weren't correctly defined so we removed them
+import { PageFlip } from 'page-flip'
 import type { Book } from '../domain/book'
 
 const props = defineProps<{
@@ -23,9 +24,18 @@ const fontFamily = computed(() => {
   return selectedFont
 })
 
-// Computed theme for applying theme classes
-const bookTheme = computed(() => {
-  return props.book.theme || 'default'
+// For custom themes, we need to create dynamic CSS variables
+const customThemeStyles = computed(() => {
+  if (!props.book.theme) {
+    return {}
+  }
+
+  return {
+    '--theme-secondary-light': props.book.theme.light,
+    '--theme-secondary-dark': props.book.theme.dark,
+    '--theme-brand-gradient': `linear-gradient(135deg, ${props.book.theme.light} 0%, ${props.book.theme.dark} 100%)`,
+    '--theme-brand-hover-shadow': `0 8px 25px ${props.book.theme.light}4D` // 30% opacity
+  }
 })
 
 // Split content into pages (approximate words per page)
@@ -228,7 +238,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="book-reader" :data-theme="bookTheme">
+  <div class="book-reader" :style="customThemeStyles">
     <div class="container">
       <!-- Close button for preview mode -->
       <button v-if="showCloseButton" @click="$emit('close')" class="close-button">

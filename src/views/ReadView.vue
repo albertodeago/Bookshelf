@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { getEncodedBookFromUrl } from '../domain/url'
 import { decodeBook } from '../domain/book'
 import BookReader from '../components/BookReader.vue'
@@ -9,6 +9,20 @@ import type { Book } from '../domain/book'
 const book = ref<Book | null>(null)
 const loading = ref(true)
 const error = ref<string | null>(null)
+
+// For custom themes, we need to create dynamic CSS variables
+const customThemeStyles = computed(() => {
+  if (!book.value?.theme) {
+    return {}
+  }
+
+  return {
+    '--theme-secondary-light': book.value.theme.light,
+    '--theme-secondary-dark': book.value.theme.dark,
+    '--theme-brand-gradient': `linear-gradient(135deg, ${book.value.theme.light} 0%, ${book.value.theme.dark} 100%)`,
+    '--theme-brand-hover-shadow': `0 8px 25px ${book.value.theme.light}4D` // 30% opacity
+  }
+})
 
 onMounted(() => {
   try {
@@ -48,7 +62,7 @@ onMounted(() => {
       </div>
 
       <!-- Book Content -->
-      <div v-else-if="book" :data-theme="book.theme || 'default'">
+      <div v-else-if="book" :style="customThemeStyles">
         <BookReader :book="book" />
       </div>
 

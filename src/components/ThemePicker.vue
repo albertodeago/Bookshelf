@@ -1,67 +1,67 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
+import type { BookTheme } from '@/domain/book'
 
 const props = defineProps<{
-  modelValue: string
+  modelValue: BookTheme | undefined
 }>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
+  'update:modelValue': [value: BookTheme]
 }>()
 
 const showThemeDropdown = ref(false)
 
-// Predefined theme options
-const themeOptions = [
-  {
-    value: 'default',
-    label: 'Default (Purple)',
-    colors: { light: '#667eea', dark: '#764ba2' }
-  },
-  {
-    value: 'ocean',
-    label: 'Ocean (Blue)',
-    colors: { light: '#06b6d4', dark: '#0891b2' }
-  },
-  {
-    value: 'forest',
-    label: 'Forest (Green)',
-    colors: { light: '#10b981', dark: '#059669' }
-  },
-  {
-    value: 'sunset',
-    label: 'Sunset (Orange)',
-    colors: { light: '#f59e0b', dark: '#dc2626' }
-  },
-  {
-    value: 'monochrome',
-    label: 'Monochrome (Gray)',
-    colors: { light: '#4b5563', dark: '#1f2937' }
-  },
-  {
-    value: 'vintage',
-    label: 'Vintage (Brown)',
-    colors: { light: '#d97706', dark: '#92400e' }
-  }
-]
-
-const toggleThemeDropdown = () => {
-  showThemeDropdown.value = !showThemeDropdown.value
+// Predefined theme options with labels
+const presetThemeLabels: { [key: string]: string } = {
+  default: 'Default (Purple)',
+  ocean: 'Ocean (Blue)',
+  forest: 'Forest (Green)',
+  sunset: 'Sunset (Orange)',
+  monochrome: 'Monochrome (Gray)',
+  vintage: 'Vintage (Brown)'
 }
 
+const presetThemes: { [key: string]: BookTheme } = {
+  default: { light: '#667eea', dark: '#764ba2' },
+  ocean: { light: '#06b6d4', dark: '#0891b2' },
+  forest: { light: '#10b981', dark: '#059669' },
+  sunset: { light: '#f59e0b', dark: '#dc2626' },
+  monochrome: { light: '#4b5563', dark: '#1f2937' },
+  vintage: { light: '#d97706', dark: '#92400e' }
+}
+
+// Generate theme options dynamically
+const themeOptions = Object.entries(presetThemes).map(([key, theme]) => ({
+  value: JSON.stringify(theme),
+  label: presetThemeLabels[key],
+  theme
+}))
+
+// Computed property to determine current theme selection
+const currentSelection = computed(() => {
+  if (!props.modelValue) return JSON.stringify(presetThemes.default)
+  return JSON.stringify(props.modelValue)
+})
+
+const currentTheme = computed(() => {
+  return props.modelValue || presetThemes.default
+})
+
+const currentLabel = computed(() => {
+  const selection = currentSelection.value
+  const option = themeOptions.find(t => t.value === selection)
+  return option ? option.label : 'Custom Theme'
+})
+
 const selectTheme = (themeValue: string) => {
-  emit('update:modelValue', themeValue)
+  const theme = JSON.parse(themeValue) as BookTheme
+  emit('update:modelValue', theme)
   showThemeDropdown.value = false
 }
 
-const getSelectedThemeLabel = () => {
-  const selected = themeOptions.find(theme => theme.value === props.modelValue)
-  return selected ? selected.label : 'Default (Purple)'
-}
-
-const getSelectedThemeColors = () => {
-  const selected = themeOptions.find(theme => theme.value === props.modelValue)
-  return selected ? selected.colors : { light: '#667eea', dark: '#764ba2' }
+const toggleThemeDropdown = () => {
+  showThemeDropdown.value = !showThemeDropdown.value
 }
 
 // Close dropdown when clicking outside
@@ -89,9 +89,9 @@ onUnmounted(() => {
     >
       <div class="theme-preview">
         <div class="theme-gradient" :style="{
-          background: `linear-gradient(135deg, ${getSelectedThemeColors().light} 0%, ${getSelectedThemeColors().dark} 100%)`
+          background: `linear-gradient(135deg, ${currentTheme.light} 0%, ${currentTheme.dark} 100%)`
         }"></div>
-        <span class="theme-label">{{ getSelectedThemeLabel() }}</span>
+        <span class="theme-label">{{ currentLabel }}</span>
       </div>
       <span class="dropdown-arrow" :class="{ 'open': showThemeDropdown }">▼</span>
     </div>
@@ -100,12 +100,12 @@ onUnmounted(() => {
         v-for="theme in themeOptions"
         :key="theme.value"
         class="custom-option"
-        :class="{ 'selected': theme.value === modelValue }"
+        :class="{ 'selected': currentSelection === theme.value }"
         @click="selectTheme(theme.value)"
       >
         <div class="theme-preview">
           <div class="theme-gradient" :style="{
-            background: `linear-gradient(135deg, ${theme.colors.light} 0%, ${theme.colors.dark} 100%)`
+            background: `linear-gradient(135deg, ${theme.theme.light} 0%, ${theme.theme.dark} 100%)`
           }"></div>
           <span class="theme-label">{{ theme.label }}</span>
         </div>
