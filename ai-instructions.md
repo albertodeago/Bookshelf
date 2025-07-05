@@ -50,6 +50,31 @@ The project uses a centralized theme system with CSS variables defined in `src/a
 4. **Maintain consistency** across all components by using the same variables for similar elements
 5. **Dark theme support** is included via `@media (prefers-color-scheme: dark)` - variables automatically adjust
 
+### When to Use `:global` Selectors
+Use `:global()` selectors **only** in these specific cases:
+- **Dynamically created HTML elements** (via JavaScript `innerHTML`, `createElement`, etc.)
+- **Third-party library content** that Vue's scoped styles can't reach (e.g., PageFlip library)
+- **Content generated outside Vue's template system**
+
+**Example in BookReader.vue:**
+```javascript
+// This creates HTML outside Vue's template system
+page.innerHTML = `<div class="page-content">${content}</div>`
+```
+```css
+/* ❌ This won't work - scoped styles can't reach dynamically created content */
+.page-content { /* styles */ }
+
+/* ✅ This works - :global makes the style available to all matching elements */
+:global(.page-content) { /* styles */ }
+```
+
+**Important Notes:**
+- `:global` styles affect the **entire application**, not just the component
+- Use them sparingly and only when absolutely necessary
+- Always add comments explaining why `:global` is needed
+- Prefer scoped styles for normal Vue template content
+
 ### Example Usage
 ```css
 /* ❌ Don't do this */
