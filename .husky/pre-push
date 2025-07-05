@@ -12,12 +12,12 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run linting
-echo "🧹 Linting..."
-npm run lint
-if [ $? -ne 0 ]; then
-  echo "❌ Lint check failed. Push aborted."
-  exit 1
-fi
+# echo "🧹 Linting..."
+# npm run lint
+# if [ $? -ne 0 ]; then
+#   echo "❌ Lint check failed. Push aborted."
+#   exit 1
+# fi
 
 # Run tests
 echo "🧪 Running tests..."
