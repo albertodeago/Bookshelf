@@ -4,6 +4,7 @@ export type Book = {
   author: string;
   content: string;
   font?: string;
+  theme?: string;
 }
 
 // TODO: maybe we should use branded type for EncodedBook?

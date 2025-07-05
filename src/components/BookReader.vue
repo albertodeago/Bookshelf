@@ -23,6 +23,11 @@ const fontFamily = computed(() => {
   return selectedFont
 })
 
+// Computed theme for applying theme classes
+const bookTheme = computed(() => {
+  return props.book.theme || 'default'
+})
+
 // Split content into pages (approximate words per page)
 const wordsPerPage = 200
 const splitIntoPages = (content: string) => {
@@ -223,7 +228,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="book-reader">
+  <div class="book-reader" :data-theme="bookTheme">
     <div class="container">
       <!-- Close button for preview mode -->
       <button v-if="showCloseButton" @click="$emit('close')" class="close-button">
@@ -300,7 +305,7 @@ onUnmounted(() => {
 }
 
 .nav-button {
-  background: var(--secondary-light);
+  background: var(--theme-secondary-light, var(--secondary-light));
   color: var(--text-inverse);
   border: none;
   border-radius: var(--radius-md);
@@ -312,7 +317,7 @@ onUnmounted(() => {
 }
 
 .nav-button:hover:not(:disabled) {
-  background: var(--secondary-dark);
+  background: var(--theme-secondary-dark, var(--secondary-dark));
   transform: translateY(-1px);
 }
 
@@ -361,7 +366,7 @@ otherwise style will be messed up
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: var(--btn-primary-bg);
+  background: var(--theme-brand-gradient, var(--brand-gradient));
   color: var(--text-inverse);
 }
 

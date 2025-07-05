@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import { encodeBookToUrl } from '../domain/url'
 import BookReader from '../components/BookReader.vue'
 import FontPicker from '../components/FontPicker.vue'
+import ThemePicker from '../components/ThemePicker.vue'
 import { defaultBookContent, defaultBookTitle, defaultBookAuthor } from '../data/defaultContent'
 
 import type { Book } from '../domain/book'
@@ -11,6 +12,7 @@ const title = ref(defaultBookTitle)
 const author = ref(defaultBookAuthor)
 const content = ref(defaultBookContent)
 const selectedFont = ref('Georgia, serif')
+const selectedTheme = ref('default')
 
 // Create a computed book object for preview
 const currentBook = computed((): Book | null => {
@@ -21,7 +23,8 @@ const currentBook = computed((): Book | null => {
     title: title.value.trim(),
     author: author.value.trim(),
     content: content.value.trim(),
-    font: selectedFont.value
+    font: selectedFont.value,
+    theme: selectedTheme.value
   }
 })
 
@@ -74,6 +77,11 @@ const saveAndShare = () => {
         <div class="form-group">
           <label for="font">Font</label>
           <FontPicker v-model="selectedFont" />
+        </div>
+
+        <div class="form-group">
+          <label for="theme">Theme</label>
+          <ThemePicker v-model="selectedTheme" />
         </div>
 
         <div class="form-group">

@@ -48,7 +48,9 @@ onMounted(() => {
       </div>
 
       <!-- Book Content -->
-      <BookReader v-else-if="book" :book="book" />
+      <div v-else-if="book" :data-theme="book.theme || 'default'">
+        <BookReader :book="book" />
+      </div>
 
       <!-- Footer for navigation -->
       <footer v-if="book" class="book-footer">

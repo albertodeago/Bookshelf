@@ -23,7 +23,9 @@ The project uses a centralized theme system with CSS variables defined in `src/a
 
 #### Component-specific Variables
 - **Cards**: `--card-bg`, `--card-shadow`, `--card-shadow-hover`, `--card-border-radius`
-- **Buttons**: `--btn-primary-bg`, `--btn-primary-hover-shadow`, `--btn-secondary-bg`, `--btn-disabled-bg`
+- **Brand/Theme**: `--brand-gradient`, `--brand-hover-shadow` (for consistent brand styling across components)
+- **Interactive Elements**: `--interactive-primary-bg`, `--interactive-primary-hover-shadow`, `--interactive-secondary-bg`, `--interactive-disabled-bg` (for buttons, links, clickable items)
+- **Buttons**: `--btn-primary-bg`, `--btn-primary-hover-shadow`, `--btn-secondary-bg`, `--btn-disabled-bg` (legacy aliases for backwards compatibility)
 - **Forms**: `--input-bg`, `--input-border`, `--input-border-focus`, `--input-focus-shadow`, `--input-placeholder`
 - **Book Pages**: `--page-bg`, `--page-shadow`, `--page-text-color`
 
