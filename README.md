@@ -37,18 +37,19 @@ Our encoding process (JSON → Base64 → URL encoding) results in a **1.5-4x si
 TODOS:
 - [x] Fix: the share on deployed env doesn't work because it's not considering the base path (`/Bookshelf/`, probably only reads the hostname)
 - [ ] Fix: next page in mobile scrolls up, terrible
-- [ ] See if we can shorten the URL for sharing books to mitigate the limitations of URL length
+- [ ] Fix: sometimes text is cut off at the end of the pages
 - [ ] Refactor it into "features" folders instead of components, views, etc?
       e.g. `src/features/read/components`, `src/features/read/stores`, etc.
 - [x] Possibility to choose different fonts
 - [x] Possibility to choose different themes
 - [ ] Possibility to choose a Cover image
 - [ ] Better homepage (explaining the app and using the icon)
-- [ ] Possibility to add images in between text paragraphs ???
+- [ ] Possibility to add images in between text paragraphs - this is probably hard to do
 - [ ] Style in general of the app - feels cheap
 - [ ] Error cases - show error messages when something goes wrong
-- [ ] Add a link to create another book from the read view
+- [x] Add a link to create another book from the read view
 - [ ] Tests with playwright
+- [ ] See if we can shorten the URL for sharing books to mitigate the limitations of URL length
 
 ## Project Setup
 
