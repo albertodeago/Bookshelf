@@ -4,6 +4,7 @@ TODOS:
 - [ ] Fix: the share on deployed env doesn't work because it's not considering the base path (`/Bookshelf/`, probably only reads the hostname)
 - [ ] Fix: next page in mobile scrolls up, terrible
 - [ ] Fix: next page in mobile scrolls up, terrible
+- [ ] Generate an image for the app (and use it also as favicon)
 - [ ] Refactor it into "features" folders instead of components, views, etc?
       e.g. `src/features/read/components`, `src/features/read/stores`, etc.
 - [x] Possibility to choose different fonts
