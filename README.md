@@ -48,6 +48,7 @@ TODOS:
 - [ ] Style in general of the app - feels cheap
 - [ ] Error cases - show error messages when something goes wrong
 - [ ] Add a link to create another book from the read view
+- [ ] Tests with playwright
 
 ## Project Setup
 
