@@ -14,13 +14,25 @@ export const getAppBaseUrl = (): string => {
 export const encodeBookToUrl = (book: Book): string => {
   const encodedData = encodeBook(book)
   const baseUrl = getAppBaseUrl()
-  return `${baseUrl}/read?book=${encodedData}`
+  return `${baseUrl}/#/read?book=${encodedData}`
 }
 
 export const getEncodedBookFromUrl = (url?: string): string | null => {
   try {
     const urlToUse = url || window.location.href
-    const urlParams = new URLSearchParams(new URL(urlToUse).search)
+    const urlObj = new URL(urlToUse)
+
+    // With hash routing, the query params are in the hash fragment
+    // e.g., https://example.com/#/read?book=abc123
+    const hash = urlObj.hash
+    if (!hash) return null
+
+    // Extract the query string from the hash
+    const hashParts = hash.split('?')
+    if (hashParts.length < 2) return null
+
+    const queryString = hashParts[1]
+    const urlParams = new URLSearchParams(queryString)
     return urlParams.get('book')
   } catch (error) {
     console.error('Error getting encoded book from URL:', error)
