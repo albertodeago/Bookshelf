@@ -35,5 +35,14 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Check for unstaged changes after build
+echo "🔍 Checking for unstaged changes after build..."
+if [ -n "$(git status --porcelain)" ]; then
+  echo "❌ Build process created unstaged changes. Please commit them first:"
+  git status --short
+  echo "💡 Run 'git add .' and 'git commit' to include these changes."
+  exit 1
+fi
+
 echo "✅ All pre-push checks passed!"
 echo "📦 Build files are ready in docs folder"
