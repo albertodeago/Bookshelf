@@ -30,12 +30,6 @@ export default defineComponent({
         <p>Choose from beautiful themes and fonts to make your book uniquely yours</p>
       </div>
 
-      <!-- <div class="feature-card">
-        <div class="feature-icon">📖</div>
-        <h3>Immersive Reading</h3>
-        <p>Experience your books with a paper-like reader and fullscreen mode</p>
-      </div> -->
-
       <div class="feature-card">
         <div class="feature-icon">🔗</div>
         <h3>Share Instantly</h3>
